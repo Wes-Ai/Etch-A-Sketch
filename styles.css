@@ -7,7 +7,10 @@ html, body, div, img {
     padding: 0;
     border: 0;
     font-size: 100%;
-    vertical-align: baseline;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .sketchContainer {
@@ -16,14 +19,17 @@ html, body, div, img {
     border: 5px solid black;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .dotDivider {
+    width: 100%;
     display: flex;
+    background-color: antiquewhite;
 }
 .divDot {
-    width:25px;
-    height:25px;
-    background-color:rgb(202, 121, 45);
+    flex: auto;
+    background-color:antiquewhite;
 }
 .hovered {
     background-color: red;
