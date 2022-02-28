@@ -16,7 +16,7 @@ function createSketchDivs (amount) {
 function onHover(oi) {
     return oi.classList.add("hovered");
 }
-createSketchDivs(16);
+createSketchDivs(32);
 
 let dots = document.querySelectorAll('.divDot');
 
@@ -29,3 +29,5 @@ for (let i = 0; i < dots.length; i++) {
         onHover(this); // 'this' refers to the current button on for loop
     }, false);
 }
+
+//TODO: Step 4!!
