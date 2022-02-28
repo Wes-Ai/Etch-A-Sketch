@@ -6,15 +6,26 @@ function createSketchDivs (amount) {
         dotDivider.classList.add('dotDivider');
         for(let k = 0; k < amount; k++) {
             const divDot = document.createElement('div');//Filling in dots
-            divDot.classList.add('divDot')
+            divDot.classList.add('divDot');
             dotDivider.appendChild(divDot);
         }
         sketchContainer.appendChild(dotDivider);
     }
 };
 
-function onHover() {
-
-};
-
+function onHover(oi) {
+    return oi.classList.add("hovered");
+}
 createSketchDivs(16);
+
+let dots = document.querySelectorAll('.divDot');
+
+//Thank you Ben Thomas! https://stackoverflow.com/questions/27946703
+for (let i = 0; i < dots.length; i++) {
+    let self = dots[i];
+
+    self.addEventListener('mousemove', function (event) {  
+        event.preventDefault(); // prevent browser's default action
+        onHover(this); // 'this' refers to the current button on for loop
+    }, false);
+}
