@@ -1,6 +1,7 @@
 //This function creates a grid of divs
 function createSketchDivs (amount) {
     const sketchContainer = document.querySelector(".sketchContainer");
+    removeAllChildNodes(sketchContainer);
     for(let i = 0; i < amount; i++) {
         const dotDivider = document.createElement('div');//Divides into lines
         dotDivider.classList.add('dotDivider');
@@ -11,18 +12,27 @@ function createSketchDivs (amount) {
             dotDivider.appendChild(divDot);
         }
         sketchContainer.appendChild(dotDivider);
+
+
+        let dots = document.querySelectorAll('.divDot');
+        attachEventsDots(dots);
     }
 };
+
+let dots = document.querySelectorAll('.divDot');
+const resetBtn = document.getElementById('reset');
+const redBtn = document.getElementById('red');
+const rainbowBtn = document.getElementById('rainbow');
+const eraserBtn = document.getElementById('eraser');
+
 
 createSketchDivs(16);
 
 
 
-
-
 //Create drop down menu DOM values
 const dotSizeDropDown = document.getElementById('dotSize');
-for(let i = 16; i <= 128; i) {
+for(let i = 16; i <= 64; i) {
     const option = document.createElement('option');
     dotSizeDropDown.appendChild(option);
     option.classList.add('option');
@@ -38,27 +48,42 @@ dotSizeDropDown.addEventListener('change', () => createSketchDivs(dotSizeDropDow
 
 
 //Button event listeners
-let dots = document.querySelectorAll('.divDot');
 
-dots.forEach(element => element.addEventListener('mousemove', () => drawOnHover(element)));
 
-const resetBtn = document.getElementById('reset');
-resetBtn.addEventListener('click', () => resetGrid());
+function attachEventsDots(dots) {
+    dots.forEach(element => element.addEventListener('mouseover', () => drawOnHover(element)));
+    resetBtn.addEventListener('click', () => resetGrid(dots));
+    redBtn.addEventListener('click', () => {
+        dots.forEach(element => element.addEventListener('mouseover', () => drawOnHover(element)));
+    });
+    rainbowBtn.addEventListener('click', () => {
+        dots.forEach(element => element.addEventListener('mouseover', () => rainbowMode(element)));
+    });
+    eraserBtn.addEventListener('click', () => {
+        dots.forEach(element => element.addEventListener('mouseover', () => eraseDots(element)));
+    });
+}
 
-const redBtn = document.getElementById('red');
-redBtn.addEventListener('click', () => {
-    dots.forEach(element => element.addEventListener('mousemove', () => drawOnHover(element)));
-});
 
-const rainbowBtn = document.getElementById('rainbow');
-rainbowBtn.addEventListener('click', () => {
-    dots.forEach(element => element.addEventListener('mousemove', () => rainbowMode(element)));
-});
 
-const eraserBtn = document.getElementById('eraser');
-eraserBtn.addEventListener('click', () => {
-    dots.forEach(element => element.addEventListener('mousemove', () => eraseDots(element)));
-});
+
+// const resetBtn = document.getElementById('reset');
+// resetBtn.addEventListener('click', () => resetGrid());
+
+// const redBtn = document.getElementById('red');
+// redBtn.addEventListener('click', () => {
+//     dots.forEach(element => element.addEventListener('mousemove', () => drawOnHover(element)));
+// });
+
+// const rainbowBtn = document.getElementById('rainbow');
+// rainbowBtn.addEventListener('click', () => {
+//     dots.forEach(element => element.addEventListener('mousemove', () => rainbowMode(element)));
+// });
+
+// const eraserBtn = document.getElementById('eraser');
+// eraserBtn.addEventListener('click', () => {
+//     dots.forEach(element => element.addEventListener('mousemove', () => eraseDots(element)));
+// });
 
 
 
@@ -78,7 +103,7 @@ function drawOnHover(element) {
     element.style.removeProperty('background-color');
     element.classList.add("hovered");
 }
-function resetGrid() {
+function resetGrid(dots) {
     dots.forEach(element => {
         element.classList.remove("hovered");
         element.classList.remove("rainbow");
@@ -97,7 +122,8 @@ function getRGB() {
     }
     return `rgb(${arr[0]}, ${arr[1]}, ${arr[2]})`;
 }
-
-
-
-
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
