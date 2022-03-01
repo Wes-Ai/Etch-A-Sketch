@@ -17,8 +17,32 @@ function createSketchDivs (amount) {
 createSketchDivs(16);
 
 
+
+
+
+//Create drop down menu DOM values
+const dotSizeDropDown = document.getElementById('dotSize');
+for(let i = 16; i <= 128; i) {
+    const option = document.createElement('option');
+    dotSizeDropDown.appendChild(option);
+    option.classList.add('option');
+    option.setAttribute('id', 'option');
+    option.textContent = i;
+    i += 16;
+}
+
+let options = document.querySelectorAll('.option');
+console.log(options);
+
+options.forEach(element => element.addEventListener('click', () => console.log(element.textContent)));
+
+
+
+
+
 //Button event listeners
 let dots = document.querySelectorAll('.divDot');
+console.log(dots)
 
 dots.forEach(element => element.addEventListener('mousemove', () => drawOnHover(element)));
 
@@ -79,13 +103,5 @@ function getRGB() {
 }
 
 
-//Create drop down menu DOM values
-const dotSizeDropDown = document.getElementById('dotSize');
-for(let i = 8; i <= 128; i) {
-    const option = document.createElement('option');
-    dotSizeDropDown.appendChild(option);
-    option.textContent = i;
-    option.classList.add(`${i}`);
-    i += 8;
-}
+
 
