@@ -31,10 +31,7 @@ for(let i = 16; i <= 128; i) {
     i += 16;
 }
 
-let options = document.querySelectorAll('.option');
-console.log(options);
-
-options.forEach(element => element.addEventListener('click', () => console.log(element.textContent)));
+dotSizeDropDown.addEventListener('change', () => createSketchDivs(dotSizeDropDown.value));
 
 
 
@@ -42,7 +39,6 @@ options.forEach(element => element.addEventListener('click', () => console.log(e
 
 //Button event listeners
 let dots = document.querySelectorAll('.divDot');
-console.log(dots)
 
 dots.forEach(element => element.addEventListener('mousemove', () => drawOnHover(element)));
 
