@@ -7,19 +7,17 @@ function createSketchDivs (amount) {
         for(let k = 0; k < amount; k++) {
             const divDot = document.createElement('div');//Filling in dots
             divDot.classList.add('divDot');
+            divDot.setAttribute('id', 'divDot');
             dotDivider.appendChild(divDot);
         }
         sketchContainer.appendChild(dotDivider);
     }
 };
 //Draws color of class onto grid
-function onHover(dot) {
+function drawOnHover(dot) {
     return dot.classList.add("hovered");
 }
 
-function removeHover(dot) {
-    return dot.classList.remove("hovered");
-}
 
 //Create drop down menu DOM values
 const dotSizeDropDown = document.getElementById('dotSize');
@@ -33,36 +31,43 @@ for(let i = 8; i <= 128; i) {
 
 const resetBtn = document.getElementById('reset');
 const rainbowBtn = document.getElementById('rainbow');
-resetBtn.onclick = () => resetGrid();
-rainbowBtn.onclick = () => rainbowMode();
+resetBtn.addEventListener('click', () => resetGrid());
+
+rainbowBtn.addEventListener('click', () => rainbowMode());
 
 
 
 createSketchDivs(16);
 let dots = document.querySelectorAll('.divDot');
 
+dots.forEach(element => {
+    element.addEventListener('mousemove', () => drawOnHover(element))
+});
+
+
 //Thank you Ben Thomas! https://stackoverflow.com/questions/27946703
 //Assigning event listeners to each dot
-for (let i = 0; i < dots.length; i++) {
-    let self = dots[i];
-    self.addEventListener('mousemove', function (event) {  
-        event.preventDefault(); // prevent browser's default action
-        onHover(this); // 'this' refers to the current button on for loop
-    }, false);
-}
+// for (let i = 0; i < dots.length; i++) {
+//     let self = dots[i];
+//     self.addEventListener('mousemove', function (event) {  
+//         event.preventDefault(); // prevent browser's default action
+//         drawOnHover(this); // 'this' refers to the current button on for loop
 
+//     }, false);
+// }
 
-let value = 16;
 
 //TODO: Step 4!!
-function resetGrid(value) {
-    removeHover(value);
+function resetGrid() {
+    dots.forEach(element => {
+        element.classList.remove("hovered");
+    });
 }
 
 function rainbowMode() {
-
+    dots.forEach(element => {
+        element.classList.toggle("rainbow");
+    });
 }
-
-
 
 

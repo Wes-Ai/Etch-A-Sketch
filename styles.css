@@ -47,4 +47,6 @@ html, body, div, img {
 .hovered {
     background-color: red;
 }
-
+.rainbow {
+    background-color: blue;
+}
