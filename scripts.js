@@ -13,9 +13,18 @@ function createSketchDivs (amount) {
         sketchContainer.appendChild(dotDivider);
     }
 };
+
+createSketchDivs(16);
+
+
+//Event listeners for drawing colors.
+let dots = document.querySelectorAll('.divDot');
+dots.forEach(element => element.addEventListener('mousemove', () => drawOnHover(element)));
+
 //Draws color of class onto grid
-function drawOnHover(dot) {
-    return dot.classList.add("hovered");
+function drawOnHover(element) {
+    element.classList.remove("rainbow");
+    element.classList.add("hovered");
 }
 
 
@@ -31,43 +40,33 @@ for(let i = 8; i <= 128; i) {
 
 const resetBtn = document.getElementById('reset');
 const rainbowBtn = document.getElementById('rainbow');
-resetBtn.addEventListener('click', () => resetGrid());
 
-rainbowBtn.addEventListener('click', () => rainbowMode());
-
-
-
-createSketchDivs(16);
-let dots = document.querySelectorAll('.divDot');
-
-dots.forEach(element => {
-    element.addEventListener('mousemove', () => drawOnHover(element))
+const redBtn = document.getElementById('red');
+redBtn.addEventListener('click', () => {
+    dots.forEach(element => element.addEventListener('mousemove', () => drawOnHover(element)));
 });
 
 
-//Thank you Ben Thomas! https://stackoverflow.com/questions/27946703
-//Assigning event listeners to each dot
-// for (let i = 0; i < dots.length; i++) {
-//     let self = dots[i];
-//     self.addEventListener('mousemove', function (event) {  
-//         event.preventDefault(); // prevent browser's default action
-//         drawOnHover(this); // 'this' refers to the current button on for loop
+resetBtn.addEventListener('click', () => resetGrid());
 
-//     }, false);
-// }
+//Rainbow drawing event listener
+rainbowBtn.addEventListener('click', () => {
+    dots.forEach(element => element.addEventListener('mousemove', () => rainbowMode(element)));
+});
+
+function rainbowMode(element) {
+    element.classList.remove("hovered");
+    element.classList.add("rainbow");
+}
 
 
-//TODO: Step 4!!
 function resetGrid() {
     dots.forEach(element => {
         element.classList.remove("hovered");
+        element.classList.remove("rainbow");
     });
 }
 
-function rainbowMode() {
-    dots.forEach(element => {
-        element.classList.toggle("rainbow");
-    });
-}
+
 
 
