@@ -12,22 +12,57 @@ function createSketchDivs (amount) {
         sketchContainer.appendChild(dotDivider);
     }
 };
-
-function onHover(oi) {
-    return oi.classList.add("hovered");
+//Draws color of class onto grid
+function onHover(dot) {
+    return dot.classList.add("hovered");
 }
-createSketchDivs(32);
 
+function removeHover(dot) {
+    return dot.classList.remove("hovered");
+}
+
+//Create drop down menu DOM values
+const dotSizeDropDown = document.getElementById('dotSize');
+for(let i = 8; i <= 128; i) {
+    const option = document.createElement('option');
+    dotSizeDropDown.appendChild(option);
+    option.textContent = i;
+    option.classList.add(`${i}`);
+    i += 8;
+}
+
+const resetBtn = document.getElementById('reset');
+const rainbowBtn = document.getElementById('rainbow');
+resetBtn.onclick = () => resetGrid();
+rainbowBtn.onclick = () => rainbowMode();
+
+
+
+createSketchDivs(16);
 let dots = document.querySelectorAll('.divDot');
 
 //Thank you Ben Thomas! https://stackoverflow.com/questions/27946703
+//Assigning event listeners to each dot
 for (let i = 0; i < dots.length; i++) {
     let self = dots[i];
-
     self.addEventListener('mousemove', function (event) {  
         event.preventDefault(); // prevent browser's default action
         onHover(this); // 'this' refers to the current button on for loop
     }, false);
 }
 
+
+let value = 16;
+
 //TODO: Step 4!!
+function resetGrid(value) {
+    removeHover(value);
+}
+
+function rainbowMode() {
+
+}
+
+
+
+

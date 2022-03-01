@@ -12,16 +12,29 @@ html, body, div, img {
     justify-content: center;
     align-items: center;
 }
-
+/*Main view CSS*/
+.splitBody {
+    display: flex;
+    width: 60vw;
+    height: 45vw;
+}
+.menu {
+    border: 3px solid blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 50%;
+    margin:2vw;
+}
 .sketchContainer {
-    width: 500px;
-    height: 500px;
     border: 5px solid black;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 45vw;
 }
+/*DOM element CSS*/
 .dotDivider {
     width: 100%;
     display: flex;
@@ -34,3 +47,4 @@ html, body, div, img {
 .hovered {
     background-color: red;
 }
+
