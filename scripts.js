@@ -16,19 +16,8 @@ function createSketchDivs (amount) {
 
 createSketchDivs(16);
 
-//Create drop down menu DOM values
-const dotSizeDropDown = document.getElementById('dotSize');
-for(let i = 8; i <= 128; i) {
-    const option = document.createElement('option');
-    dotSizeDropDown.appendChild(option);
-    option.textContent = i;
-    option.classList.add(`${i}`);
-    i += 8;
-}
-
 
 //Button event listeners
-
 let dots = document.querySelectorAll('.divDot');
 
 dots.forEach(element => element.addEventListener('mousemove', () => drawOnHover(element)));
@@ -52,26 +41,51 @@ eraserBtn.addEventListener('click', () => {
 });
 
 
+
+
 //Drawing functions
 function rainbowMode(element) { 
     element.classList.remove("hovered");
-    element.classList.add("rainbow");
+    element.style.backgroundColor = getRGB();
 }
 function eraseDots(element) {
     element.classList.remove("hovered");
     element.classList.remove("rainbow");
+    element.style.removeProperty('background-color');
 }
 function drawOnHover(element) {
     element.classList.remove("rainbow");
+    element.style.removeProperty('background-color');
     element.classList.add("hovered");
 }
 function resetGrid() {
     dots.forEach(element => {
         element.classList.remove("hovered");
         element.classList.remove("rainbow");
+        element.style.removeProperty('background-color');
     });
 }
 
 
+//Helper Functions
+function getRGB() {
+    let arr = [];
+    while (arr.length < 3) {
+        let r = Math.floor(Math.random() * 256) + 1;
+        if(arr.indexOf(r) === -1) arr.push(r);
 
+    }
+    return `rgb(${arr[0]}, ${arr[1]}, ${arr[2]})`;
+}
+
+
+//Create drop down menu DOM values
+const dotSizeDropDown = document.getElementById('dotSize');
+for(let i = 8; i <= 128; i) {
+    const option = document.createElement('option');
+    dotSizeDropDown.appendChild(option);
+    option.textContent = i;
+    option.classList.add(`${i}`);
+    i += 8;
+}
 
