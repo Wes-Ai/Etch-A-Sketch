@@ -122,7 +122,7 @@ async function fillGridInstantRGB(dots) {
 }
 
 async function discoMode(dots) {
-    for(let i = 0; i < 25; i++) {
+    for(let i = 0; i < 15; i++) {
         fillGridInstantRGB(dots);
         await sleep(800);
     }
