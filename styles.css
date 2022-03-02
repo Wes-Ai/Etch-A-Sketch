@@ -30,6 +30,11 @@ html, body, div, img {
     height: 50%;
     margin:2vw;
 }
+.btn {
+    border: 2px solid rgb(149, 149, 149);
+    border-radius: 2px;
+    font-size: 1em;
+}
 .sketchContainer {
     border: 2px solid rgba(0, 0, 0, 0.24);
     display: flex;
@@ -49,7 +54,7 @@ html, body, div, img {
 .divDot {
     flex: auto;
     background-color:antiquewhite;
-    border: 0.5px solid black;
+    /*border: 0.5px solid black;*/
 }
 .hovered {
     background-color: red;

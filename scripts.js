@@ -13,7 +13,6 @@ function createSketchDivs (amount) {
         }
         sketchContainer.appendChild(dotDivider);
 
-
         let dots = document.querySelectorAll('.divDot');
         attachEventsDots(dots);
     }
@@ -24,6 +23,11 @@ const resetBtn = document.getElementById('reset');
 const redBtn = document.getElementById('red');
 const rainbowBtn = document.getElementById('rainbow');
 const eraserBtn = document.getElementById('eraser');
+const gridBtn = document.getElementById('gridLines');
+const circleBtn = document.getElementById('circle');
+
+const dropDownValuesMax = 96;
+
 
 
 createSketchDivs(16);
@@ -32,7 +36,7 @@ createSketchDivs(16);
 
 //Create drop down menu DOM values
 const dotSizeDropDown = document.getElementById('dotSize');
-for(let i = 16; i <= 64; i) {
+for(let i = 16; i <= dropDownValuesMax; i) {
     const option = document.createElement('option');
     dotSizeDropDown.appendChild(option);
     option.classList.add('option');
@@ -40,19 +44,16 @@ for(let i = 16; i <= 64; i) {
     option.textContent = i;
     i += 16;
 }
-
 dotSizeDropDown.addEventListener('change', () => createSketchDivs(dotSizeDropDown.value));
 
 
 
-
-
 //Button event listeners
-
-
 function attachEventsDots(dots) {
     dots.forEach(element => element.addEventListener('mouseover', () => drawOnHover(element)));
     resetBtn.addEventListener('click', () => resetGrid(dots));
+    gridBtn.addEventListener('click', () => activateGridLines(dots));
+    circleBtn.addEventListener('click', () => convertToCircle(dots));
     redBtn.addEventListener('click', () => {
         dots.forEach(element => element.addEventListener('mouseover', () => drawOnHover(element)));
     });
@@ -63,29 +64,6 @@ function attachEventsDots(dots) {
         dots.forEach(element => element.addEventListener('mouseover', () => eraseDots(element)));
     });
 }
-
-
-
-
-// const resetBtn = document.getElementById('reset');
-// resetBtn.addEventListener('click', () => resetGrid());
-
-// const redBtn = document.getElementById('red');
-// redBtn.addEventListener('click', () => {
-//     dots.forEach(element => element.addEventListener('mousemove', () => drawOnHover(element)));
-// });
-
-// const rainbowBtn = document.getElementById('rainbow');
-// rainbowBtn.addEventListener('click', () => {
-//     dots.forEach(element => element.addEventListener('mousemove', () => rainbowMode(element)));
-// });
-
-// const eraserBtn = document.getElementById('eraser');
-// eraserBtn.addEventListener('click', () => {
-//     dots.forEach(element => element.addEventListener('mousemove', () => eraseDots(element)));
-// });
-
-
 
 
 //Drawing functions
@@ -108,6 +86,18 @@ function resetGrid(dots) {
         element.classList.remove("hovered");
         element.classList.remove("rainbow");
         element.style.removeProperty('background-color');
+        element.style.removeProperty('border');
+        element.style.removeProperty('border-radius');
+    });
+}
+function activateGridLines(dots) {
+    dots.forEach(element => {
+        element.style.border = '1px solid black';
+    });
+}
+function convertToCircle(dots) {
+    dots.forEach(element => {
+        element.style.borderRadius = '100%';
     });
 }
 
@@ -122,6 +112,7 @@ function getRGB() {
     }
     return `rgb(${arr[0]}, ${arr[1]}, ${arr[2]})`;
 }
+
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
