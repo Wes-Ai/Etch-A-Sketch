@@ -26,6 +26,7 @@ const eraserBtn = document.getElementById('eraser');
 const gridBtn = document.getElementById('gridLines');
 const circleBtn = document.getElementById('circle');
 const fillBtn = document.getElementById('fill');
+const discoBtn = document.getElementById('disco');
 
 const dropDownValuesMax = 96;
 
@@ -55,7 +56,8 @@ function attachEventsDots(dots) {
     resetBtn.addEventListener('click', () => resetGrid(dots));
     gridBtn.addEventListener('click', () => activateGridLines(dots));
     circleBtn.addEventListener('click', () => convertToCircle(dots));
-    fillBtn.addEventListener('click', () => fillGridRGB(dots));
+    fillBtn.addEventListener('click', () => fillGridSleepRGB(dots));
+    discoBtn.addEventListener('click', () => discoMode(dots));
     redBtn.addEventListener('click', () => {
         dots.forEach(element => element.addEventListener('mouseover', () => drawOnHover(element)));
     });
@@ -104,12 +106,26 @@ function convertToCircle(dots) {
     });
 }
 
-async function fillGridRGB(dots) {
+async function fillGridSleepRGB(dots) {
     for (let i = 0; i < dots.length; i++) {
         rainbowMode(dots[i]);
         await sleep(5);
     }
     console.log('Done');
+}
+
+async function fillGridInstantRGB(dots) {
+    for (let i = 0; i < dots.length; i++) {
+        rainbowMode(dots[i]);
+    }
+    console.log('Done');
+}
+
+async function discoMode(dots) {
+    for(let i = 0; i < 25; i++) {
+        fillGridInstantRGB(dots);
+        await sleep(800);
+    }
 }
 
 
