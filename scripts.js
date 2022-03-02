@@ -25,6 +25,7 @@ const rainbowBtn = document.getElementById('rainbow');
 const eraserBtn = document.getElementById('eraser');
 const gridBtn = document.getElementById('gridLines');
 const circleBtn = document.getElementById('circle');
+const fillBtn = document.getElementById('fill');
 
 const dropDownValuesMax = 96;
 
@@ -54,6 +55,7 @@ function attachEventsDots(dots) {
     resetBtn.addEventListener('click', () => resetGrid(dots));
     gridBtn.addEventListener('click', () => activateGridLines(dots));
     circleBtn.addEventListener('click', () => convertToCircle(dots));
+    fillBtn.addEventListener('click', () => fillGridRGB(dots));
     redBtn.addEventListener('click', () => {
         dots.forEach(element => element.addEventListener('mouseover', () => drawOnHover(element)));
     });
@@ -80,6 +82,7 @@ function drawOnHover(element) {
     element.classList.remove("rainbow");
     element.style.removeProperty('background-color');
     element.classList.add("hovered");
+    element.classList.add
 }
 function resetGrid(dots) {
     dots.forEach(element => {
@@ -101,6 +104,14 @@ function convertToCircle(dots) {
     });
 }
 
+async function fillGridRGB(dots) {
+    for (let i = 0; i < dots.length; i++) {
+        rainbowMode(dots[i]);
+        await sleep(5);
+    }
+    console.log('Done');
+}
+
 
 //Helper Functions
 function getRGB() {
@@ -118,3 +129,8 @@ function removeAllChildNodes(parent) {
         parent.removeChild(parent.firstChild);
     }
 }
+//Sleep or timeout function
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
