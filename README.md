@@ -2,4 +2,4 @@
 
 Move your mouse to create a sketch!
 
-Live site here: https://wesy32.github.io/Etch-A-Sketch/
+Live site here: https://Wes-Ai.github.io/Etch-A-Sketch/
